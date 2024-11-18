@@ -2,7 +2,7 @@
 
 pub use super::rectangle::{centered, centered_square as circle};
 use super::{
-    math::Matrix2d,
+    math::Affine2,
     triangulation,
     types::{Color, Radius, Rectangle, Resolution},
     DrawState, Graphics,
@@ -78,7 +78,7 @@ impl Ellipse {
         from: P,
         to: P,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -101,7 +101,7 @@ impl Ellipse {
         &self,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -114,7 +114,7 @@ impl Ellipse {
         &self,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,

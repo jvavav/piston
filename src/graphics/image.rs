@@ -1,7 +1,7 @@
 //! Draw an image
 
 use super::{
-    math::Matrix2d,
+    math::Affine2,
     triangulation,
     types::{Color, Rectangle, SourceRectangle},
     DrawState, Graphics, ImageSize,
@@ -124,7 +124,7 @@ impl Image {
         &self,
         texture: &<G as Graphics>::Texture,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -137,7 +137,7 @@ impl Image {
         &self,
         texture: &<G as Graphics>::Texture,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -176,7 +176,7 @@ pub fn draw_many<G>(
     color: Color,
     texture: &<G as Graphics>::Texture,
     draw_state: &DrawState,
-    transform: Matrix2d,
+    transform: Affine2,
     g: &mut G,
 ) where
     G: Graphics,

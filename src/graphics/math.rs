@@ -19,7 +19,7 @@ use super::{
 pub type Scalar = f64;
 
 /// The type used for matrices.
-pub type Matrix2d<T = Scalar> = vecmath::Matrix2x3<T>;
+pub type Affine2<T = Scalar> = vecmath::Matrix2x3<T>;
 
 /// The type used for 2D vectors.
 pub type Vec2d<T = Scalar> = vecmath::Vector2<T>;
@@ -43,7 +43,7 @@ where
 /// and the y axis points down on the screen.
 #[allow(clippy::just_underscores_and_digits)] // Naming convention.
 #[inline(always)]
-pub fn abs_transform<T>(w: T, h: T) -> Matrix2d<T>
+pub fn abs_transform<T>(w: T, h: T) -> Affine2<T>
 where
     T: Float,
 {
@@ -60,7 +60,7 @@ where
 /// Creates a translation matrix.
 #[allow(clippy::just_underscores_and_digits)] // Naming convention.
 #[inline(always)]
-pub fn translate<T>(v: Vec2d<T>) -> Matrix2d<T>
+pub fn translate<T>(v: Vec2d<T>) -> Affine2<T>
 where
     T: Float,
 {
@@ -74,7 +74,7 @@ where
 /// Creates a rotation matrix.
 #[allow(clippy::just_underscores_and_digits)] // Naming convention.
 #[inline(always)]
-pub fn rotate_radians<T>(angle: T) -> Matrix2d<T>
+pub fn rotate_radians<T>(angle: T) -> Affine2<T>
 where
     T: Float,
 {
@@ -92,7 +92,7 @@ where
 /// point to look at is the origin.
 #[allow(clippy::just_underscores_and_digits)] // Naming convention.
 #[inline(always)]
-pub fn orient<T>(x: T, y: T) -> Matrix2d<T>
+pub fn orient<T>(x: T, y: T) -> Affine2<T>
 where
     T: Float,
 {
@@ -113,7 +113,7 @@ where
 /// Create a scale matrix.
 #[allow(clippy::just_underscores_and_digits)] // Naming convention.
 #[inline(always)]
-pub fn scale<T>(sx: T, sy: T) -> Matrix2d<T>
+pub fn scale<T>(sx: T, sy: T) -> Affine2<T>
 where
     T: Float,
 {
@@ -126,7 +126,7 @@ where
 /// Create a shear matrix.
 #[allow(clippy::just_underscores_and_digits)] // Naming convention.
 #[inline(always)]
-pub fn shear<T>(v: Vec2d<T>) -> Matrix2d<T>
+pub fn shear<T>(v: Vec2d<T>) -> Affine2<T>
 where
     T: Float,
 {
@@ -140,7 +140,7 @@ where
 /// Create an identity matrix.
 #[allow(clippy::just_underscores_and_digits)] // Naming convention.
 #[inline(always)]
-pub fn identity<T>() -> Matrix2d<T>
+pub fn identity<T>() -> Affine2<T>
 where
     T: Float,
 {
@@ -153,7 +153,7 @@ where
 
 /// Extract scale information from matrix.
 #[inline(always)]
-pub fn get_scale<T>(m: Matrix2d<T>) -> Vec2d<T>
+pub fn get_scale<T>(m: Affine2<T>) -> Vec2d<T>
 where
     T: Float,
 {

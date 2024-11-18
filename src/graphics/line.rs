@@ -1,7 +1,7 @@
 //! Draw Line
 
 use super::{
-    math::{Matrix2d, Scalar},
+    math::{Affine2, Scalar},
     triangulation, types,
     types::{Color, Radius, Resolution},
     DrawState, Graphics,
@@ -95,7 +95,7 @@ impl Line {
         from: P,
         to: P,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -116,7 +116,7 @@ impl Line {
         &self,
         line: L,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -129,7 +129,7 @@ impl Line {
         &self,
         line: L,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -155,7 +155,7 @@ impl Line {
         line: L,
         head_size: Scalar,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,

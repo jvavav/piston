@@ -1,7 +1,7 @@
 //! A flat grid with square cells.
 
 use super::{
-    math::{Matrix2d, Scalar, Vec2d},
+    math::{Affine2, Scalar, Vec2d},
     DrawState, Graphics, Line,
 };
 
@@ -26,7 +26,7 @@ pub struct GridCells {
 
 impl Grid {
     /// Draws the grid.
-    pub fn draw<G>(&self, line: &Line, draw_state: &DrawState, transform: Matrix2d, g: &mut G)
+    pub fn draw<G>(&self, line: &Line, draw_state: &DrawState, transform: Affine2, g: &mut G)
     where
         G: Graphics,
     {

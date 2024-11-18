@@ -1,7 +1,7 @@
 //! Draw polygon
 
 use super::{
-    math::{Matrix2d, Scalar},
+    math::{Affine2, Scalar},
     triangulation, types,
     types::Color,
     DrawState, Graphics,
@@ -32,7 +32,7 @@ impl Polygon {
         &self,
         polygon: types::Polygon<'_>,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -45,7 +45,7 @@ impl Polygon {
         &self,
         polygon: types::Polygon<'_>,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -62,7 +62,7 @@ impl Polygon {
         polygons: types::Polygons<'_>,
         tween_factor: Scalar,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -76,7 +76,7 @@ impl Polygon {
         polygons: types::Polygons<'_>,
         tween_factor: Scalar,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,

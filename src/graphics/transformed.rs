@@ -1,5 +1,5 @@
 use super::{
-    math::{multiply, orient, rotate_radians, scale, shear, translate, Matrix2d, Scalar, Vec2d},
+    math::{multiply, orient, rotate_radians, scale, shear, translate, Affine2, Scalar, Vec2d},
     radians::Radians,
     Context,
 };
@@ -7,10 +7,10 @@ use super::{
 /// Implemented by contexts that can transform.
 pub trait Transformed: Sized {
     /// Appends transform to the current one.
-    fn append_transform(self, transform: Matrix2d) -> Self;
+    fn append_transform(self, transform: Affine2) -> Self;
 
     /// Prepends transform to the current one.
-    fn prepend_transform(self, transform: Matrix2d) -> Self;
+    fn prepend_transform(self, transform: Affine2) -> Self;
 
     /// Translate x and y in local coordinates.
     fn trans(self, x: Scalar, y: Scalar) -> Self;
@@ -89,14 +89,14 @@ pub trait Transformed: Sized {
     }
 }
 
-impl Transformed for Matrix2d {
+impl Transformed for Affine2 {
     #[inline(always)]
-    fn append_transform(self, transform: Matrix2d) -> Self {
+    fn append_transform(self, transform: Affine2) -> Self {
         multiply(self, transform)
     }
 
     #[inline(always)]
-    fn prepend_transform(self, transform: Matrix2d) -> Self {
+    fn prepend_transform(self, transform: Affine2) -> Self {
         multiply(transform, self)
     }
 
@@ -133,13 +133,13 @@ impl Transformed for Matrix2d {
 
 impl Transformed for Context {
     #[inline(always)]
-    fn append_transform(mut self, transform: Matrix2d) -> Self {
+    fn append_transform(mut self, transform: Affine2) -> Self {
         self.transform = self.transform.append_transform(transform);
         self
     }
 
     #[inline(always)]
-    fn prepend_transform(mut self, transform: Matrix2d) -> Self {
+    fn prepend_transform(mut self, transform: Affine2) -> Self {
         self.transform = self.transform.prepend_transform(transform);
         self
     }

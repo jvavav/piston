@@ -1,7 +1,7 @@
 //! Draw an arc
 
 use super::{
-    math::Matrix2d,
+    math::Affine2,
     triangulation,
     types::{Color, Radius, Rectangle, Resolution, Scalar},
     DrawState, Graphics,
@@ -74,7 +74,7 @@ impl CircleArc {
         &self,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -87,7 +87,7 @@ impl CircleArc {
         &self,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,

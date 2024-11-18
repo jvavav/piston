@@ -15,7 +15,7 @@
 
 pub use super::math::margin_rectangle as margin;
 use super::{
-    math::{Matrix2d, Scalar},
+    math::{Affine2, Scalar},
     triangulation, types,
     types::{Color, Radius, Resolution},
     DrawState, Graphics,
@@ -184,7 +184,7 @@ impl Rectangle {
         from: P,
         to: P,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -210,7 +210,7 @@ impl Rectangle {
         &self,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,
@@ -226,7 +226,7 @@ impl Rectangle {
         &self,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) where
         G: Graphics,

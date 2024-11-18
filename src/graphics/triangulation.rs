@@ -2,7 +2,7 @@
 use interpolation::lerp;
 
 use super::{
-    math::{multiply, orient, translate, Matrix2d, Scalar, Vec2d},
+    math::{multiply, orient, translate, Affine2, Scalar, Vec2d},
     radians::Radians,
     types::{Line, Polygon, Polygons, Radius, Rectangle, Resolution, SourceRectangle},
     ImageSize, BACK_END_MAX_VERTEX_COUNT as BUFFER_SIZE,
@@ -10,20 +10,20 @@ use super::{
 
 /// Transformed x coordinate as f32.
 #[inline(always)]
-pub fn tx(m: Matrix2d, x: Scalar, y: Scalar) -> f32 {
+pub fn tx(m: Affine2, x: Scalar, y: Scalar) -> f32 {
     (m[0][0] * x + m[0][1] * y + m[0][2]) as f32
 }
 
 /// Transformed y coordinate as f32.
 #[inline(always)]
-pub fn ty(m: Matrix2d, x: Scalar, y: Scalar) -> f32 {
+pub fn ty(m: Affine2, x: Scalar, y: Scalar) -> f32 {
     (m[1][0] * x + m[1][1] * y + m[1][2]) as f32
 }
 
 /// Streams tweened polygons using linear interpolation.
 #[inline(always)]
 pub fn with_lerp_polygons_tri_list<F>(
-    m: Matrix2d,
+    m: Affine2,
     polygons: Polygons<'_>,
     tween_factor: Scalar,
     f: F,
@@ -51,7 +51,7 @@ pub fn with_lerp_polygons_tri_list<F>(
 
 /// Streams an ellipse specified by a resolution.
 #[inline(always)]
-pub fn with_ellipse_tri_list<F>(resolution: Resolution, m: Matrix2d, rect: Rectangle, f: F)
+pub fn with_ellipse_tri_list<F>(resolution: Resolution, m: Affine2, rect: Rectangle, f: F)
 where
     F: FnMut(&[[f32; 2]]),
 {
@@ -73,7 +73,7 @@ where
 #[inline(always)]
 pub fn with_round_border_line_tri_list<F>(
     resolution_cap: Resolution,
-    m: Matrix2d,
+    m: Affine2,
     line: Line,
     round_border_radius: Radius,
     f: F,
@@ -127,7 +127,7 @@ pub fn with_round_border_line_tri_list<F>(
 #[inline(always)]
 pub fn with_round_rectangle_tri_list<F>(
     resolution_corner: Resolution,
-    m: Matrix2d,
+    m: Affine2,
     rect: Rectangle,
     round_radius: Radius,
     f: F,
@@ -222,7 +222,7 @@ pub fn with_round_rectangle_tri_list<F>(
 /// reached, that chunk is fed to `f`, then this function proceeds using a new buffer
 /// until a call to `polygon` returns `None`, indicating there are no points left in
 /// the polygon. (in which case the last partially filled buffer is sent to `f`)
-pub fn stream_polygon_tri_list<E, F>(m: Matrix2d, mut polygon: E, mut f: F)
+pub fn stream_polygon_tri_list<E, F>(m: Affine2, mut polygon: E, mut f: F)
 where
     E: Iterator<Item = Vec2d>,
     F: FnMut(&[[f32; 2]]),
@@ -275,7 +275,7 @@ where
 #[inline(always)]
 pub fn with_ellipse_border_tri_list<F>(
     resolution: Resolution,
-    m: Matrix2d,
+    m: Affine2,
     rect: Rectangle,
     border_radius: Radius,
     f: F,
@@ -315,7 +315,7 @@ pub fn with_arc_tri_list<F>(
     start_radians: Scalar,
     end_radians: Scalar,
     resolution: Resolution,
-    m: Matrix2d,
+    m: Affine2,
     rect: Rectangle,
     border_radius: Radius,
     f: F,
@@ -375,7 +375,7 @@ pub fn with_arc_tri_list<F>(
 #[inline(always)]
 pub fn with_round_rectangle_border_tri_list<F>(
     resolution_corner: Resolution,
-    m: Matrix2d,
+    m: Affine2,
     rect: Rectangle,
     round_radius: Radius,
     border_radius: Radius,
@@ -512,7 +512,7 @@ pub fn with_round_rectangle_border_tri_list<F>(
 /// until a call to `quad_edge` returns `None`, indicating there are no more edges left.
 /// (in which case the last partially filled buffer is sent to `f`)
 #[allow(clippy::identity_op)] // Identity operations are used for readibility.
-pub fn stream_quad_tri_list<E, F>(m: Matrix2d, mut quad_edge: E, mut f: F)
+pub fn stream_quad_tri_list<E, F>(m: Affine2, mut quad_edge: E, mut f: F)
 where
     E: FnMut() -> Option<(Vec2d, Vec2d)>,
     F: FnMut(&[[f32; 2]]),
@@ -576,7 +576,7 @@ where
 /// Create a buffer that fits into L1 cache with 1KB overhead.
 ///
 /// See `stream_polygon_tri_list` docs for detailed explanation.
-pub fn with_polygon_tri_list<F>(m: Matrix2d, polygon: Polygon<'_>, f: F)
+pub fn with_polygon_tri_list<F>(m: Affine2, polygon: Polygon<'_>, f: F)
 where
     F: FnMut(&[[f32; 2]]),
 {
@@ -585,7 +585,7 @@ where
 
 /// Creates triangle list vertices from rectangle.
 #[inline(always)]
-pub fn rect_tri_list_xy(m: Matrix2d, rect: Rectangle) -> [[f32; 2]; 6] {
+pub fn rect_tri_list_xy(m: Affine2, rect: Rectangle) -> [[f32; 2]; 6] {
     let (x, y, w, h) = (rect[0], rect[1], rect[2], rect[3]);
     let (x2, y2) = (x + w, y + h);
     [
@@ -601,7 +601,7 @@ pub fn rect_tri_list_xy(m: Matrix2d, rect: Rectangle) -> [[f32; 2]; 6] {
 /// Creates triangle list vertices from rectangle.
 #[inline(always)]
 pub fn rect_border_tri_list_xy(
-    m: Matrix2d,
+    m: Affine2,
     rect: Rectangle,
     border_radius: Radius,
 ) -> [[f32; 2]; 24] {

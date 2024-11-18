@@ -1,7 +1,7 @@
 //! Transformation context
 
 use super::{
-    math::{abs_transform, get_scale, identity, Matrix2d, Scalar, Vec2d},
+    math::{abs_transform, get_scale, identity, Affine2, Scalar, Vec2d},
     DrawState, Viewport,
 };
 
@@ -11,9 +11,9 @@ pub struct Context {
     /// Viewport information.
     pub viewport: Option<Viewport>,
     /// View transformation.
-    pub view: Matrix2d,
+    pub view: Affine2,
     /// Current transformation.
-    pub transform: Matrix2d,
+    pub transform: Affine2,
     /// Current draw state settings.
     pub draw_state: DrawState,
 }

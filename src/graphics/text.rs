@@ -3,7 +3,7 @@
 use super::{
     character::CharacterCache,
     color,
-    math::{Matrix2d, Vec2d},
+    math::{Affine2, Vec2d},
     types::{Color, FontSize},
     DrawState, Graphics, Image, Transformed,
 };
@@ -51,7 +51,7 @@ impl Text {
         pos: Vec2d,
         cache: &mut C,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) -> Result<(), C::Error>
     where
@@ -67,7 +67,7 @@ impl Text {
         text: &str,
         cache: &mut C,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
         g: &mut G,
     ) -> Result<(), C::Error>
     where

@@ -32,7 +32,7 @@ pub use draw_state::DrawState;
 pub use ellipse::Ellipse;
 pub use image::Image;
 pub use line::Line;
-use math::{Matrix2d, Scalar};
+use math::{Affine2, Scalar};
 pub use polygon::Polygon;
 pub use radians::Radians;
 pub use rectangle::Rectangle;
@@ -90,7 +90,7 @@ where
 }
 
 /// Draws image.
-pub fn image<G>(image: &<G as Graphics>::Texture, transform: math::Matrix2d, g: &mut G)
+pub fn image<G>(image: &<G as Graphics>::Texture, transform: math::Affine2, g: &mut G)
 where
     G: Graphics,
 {
@@ -102,7 +102,7 @@ pub fn ellipse_from_to<P: Into<types::Vec2d>, G>(
     color: types::Color,
     from: P,
     to: P,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -114,7 +114,7 @@ pub fn ellipse_from_to<P: Into<types::Vec2d>, G>(
 pub fn ellipse<R: Into<types::Rectangle>, G>(
     color: types::Color,
     rect: R,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -129,7 +129,7 @@ pub fn circle_arc<R: Into<types::Rectangle>, G>(
     start: types::Scalar,
     end: types::Scalar,
     rect: R,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -142,7 +142,7 @@ pub fn rectangle_from_to<P: Into<types::Vec2d>, G>(
     color: types::Color,
     from: P,
     to: P,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -154,7 +154,7 @@ pub fn rectangle_from_to<P: Into<types::Vec2d>, G>(
 pub fn rectangle<R: Into<types::Rectangle>, G>(
     color: types::Color,
     rect: R,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -166,7 +166,7 @@ pub fn rectangle<R: Into<types::Rectangle>, G>(
 pub fn polygon<G>(
     color: types::Color,
     polygon: types::Polygon<'_>,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -180,7 +180,7 @@ pub fn line_from_to<P: Into<types::Vec2d>, G>(
     radius: types::Radius,
     from: P,
     to: P,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -193,7 +193,7 @@ pub fn line<L: Into<types::Line>, G>(
     color: types::Color,
     radius: types::Radius,
     line: L,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) where
     G: Graphics,
@@ -207,7 +207,7 @@ pub fn text<C, G>(
     font_size: types::FontSize,
     text: &str,
     cache: &mut C,
-    transform: math::Matrix2d,
+    transform: math::Affine2,
     g: &mut G,
 ) -> Result<(), C::Error>
 where
@@ -360,7 +360,7 @@ pub trait Graphics: Sized {
         r: &Rectangle,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
     ) {
         r.draw_tri(rectangle, draw_state, transform, self);
     }
@@ -376,7 +376,7 @@ pub trait Graphics: Sized {
         p: &Polygon,
         polygon: types::Polygon<'_>,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
     ) {
         p.draw_tri(polygon, draw_state, transform, self);
     }
@@ -393,7 +393,7 @@ pub trait Graphics: Sized {
         polygons: types::Polygons<'_>,
         tween_factor: Scalar,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
     ) {
         p.draw_tween_lerp_tri(polygons, tween_factor, draw_state, transform, self);
     }
@@ -409,7 +409,7 @@ pub trait Graphics: Sized {
         image: &Image,
         texture: &Self::Texture,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
     ) {
         image.draw_tri(texture, draw_state, transform, self);
     }
@@ -425,7 +425,7 @@ pub trait Graphics: Sized {
         e: &Ellipse,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
     ) {
         e.draw_tri(rectangle, draw_state, transform, self);
     }
@@ -441,7 +441,7 @@ pub trait Graphics: Sized {
         l: &Line,
         line: L,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
     ) {
         l.draw_tri(line, draw_state, transform, self);
     }
@@ -457,7 +457,7 @@ pub trait Graphics: Sized {
         c: &CircleArc,
         rectangle: R,
         draw_state: &DrawState,
-        transform: Matrix2d,
+        transform: Affine2,
     ) {
         c.draw_tri(rectangle, draw_state, transform, self);
     }
