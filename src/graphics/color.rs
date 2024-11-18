@@ -51,9 +51,7 @@ pub fn alpha(f: ColorComponent) -> Color {
 
 /// Converts from hexadecimal color format
 pub fn hex(hex: &str) -> Color {
-    use read_color::rgb_maybe_a;
-
-    let (rgb, a) = rgb_maybe_a(&mut hex.chars()).unwrap();
+    let (rgb, a) = crate::read_color::rgb_maybe_a(&mut hex.chars()).unwrap();
     let color = match a {
         None => [rgb[0], rgb[1], rgb[2], 255],
         Some(a) => [rgb[0], rgb[1], rgb[2], a],

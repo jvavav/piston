@@ -146,6 +146,7 @@ pub mod graphics;
 pub mod graphics_api_version;
 pub mod input;
 pub mod opengl_graphics;
+pub mod read_color;
 pub mod shader_version;
 pub mod shaders;
 pub mod texture;
