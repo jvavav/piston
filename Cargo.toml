@@ -3,18 +3,18 @@ name = "piston"
 version = "1.0.0"
 edition = "2018"
 authors = [
-    "bvssvni <bvssvni@gmail.com>",
-    "Coeuvre <coeuvre@gmail.com>",
-    "gmorenz",
-    "leonkunert <info@leonkunert.de>",
-    "mitchmindtree <me@michellnordine.com>",
-    "Christiandh",
-    "Apointos",
-    "ccgn",
-    "reem",
-    "TyOverby <ty@pre-alpha.com>",
-    "eddyb",
-    "Phlosioneer <mattmdrr2@gmail.com"
+  "bvssvni <bvssvni@gmail.com>",
+  "Coeuvre <coeuvre@gmail.com>",
+  "gmorenz",
+  "leonkunert <info@leonkunert.de>",
+  "mitchmindtree <me@michellnordine.com>",
+  "Christiandh",
+  "Apointos",
+  "ccgn",
+  "reem",
+  "TyOverby <ty@pre-alpha.com>",
+  "eddyb",
+  "Phlosioneer <mattmdrr2@gmail.com",
 ]
 keywords = ["piston", "game", "engine", "core"]
 description = "The Piston game engine core libraries"
@@ -25,28 +25,22 @@ documentation = "https://docs.rs/piston"
 readme = "README.md"
 exclude = ["images/*"]
 
-[lib]
-name = "piston"
-path = "./src/lib.rs"
-
 [features]
-async = ["pistoncore-event_loop/async"]
+async = ["dep:tokio"]
+webgl = []
 
-[dependencies.pistoncore-input]
-path = "src/input"
-version = "1.0.1"
-
-[dependencies.pistoncore-window]
-path = "src/window"
-version = "1.0.0"
-
-[dependencies.pistoncore-event_loop]
-path = "src/event_loop"
-version = "1.0.0"
-
-[workspace]
-members = [
-  "src/input",
-  "src/window",
-  "src/event_loop"
-]
+[dependencies]
+spin_sleep = "1.2"
+tokio = { version = "1", features = ["time"], optional = true }
+serde_derive = "1.0"
+serde = "1.0"
+bitflags = "2"
+interpolation = "0.3.0"
+read_color = "1.0.0"
+vecmath = "1.0.0"
+gl = "0.14.0"
+glutin = "0.30.6"
+winit = "0.28.1"
+glutin-winit = "0.3.0"
+raw-window-handle = "0.5.0"
+image = { version = "0.25.5", default-features = false }

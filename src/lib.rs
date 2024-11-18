@@ -1,15 +1,11 @@
 #![crate_name = "piston"]
 #![deny(
-    rust_2018_compatibility,
-    rust_2018_idioms,
-    future_incompatible,
     nonstandard_style,
     unused,
     clippy::all,
     clippy::doc_markdown,
     missing_docs,
-    missing_copy_implementations,
-    missing_debug_implementations
+    missing_copy_implementations
 )]
 
 //! A modular game engine written in Rust.
@@ -89,13 +85,13 @@
 //! For example (a few libraries, there are many more):
 //!
 //! - [Image](https://github.com/pistondevelopers/image) library is standalone
-//! from both the core and the 2D graphics library,
-//! only connected through the 2D graphics backends.
+//!   from both the core and the 2D graphics library,
+//!   only connected through the 2D graphics backends.
 //! - [Piston's 2D graphics](https://github.com/pistondevelopers/graphics) is optional and can be used without a window backend.
-//! The window backend can be used without a 2D graphics backend, and so on.
+//!   The window backend can be used without a 2D graphics backend, and so on.
 //! - For image processing, see [Imageproc](https://github.com/pistondevelopers/imageproc).
 //! - [Dyon](https://github.com/pistondevelopers/dyon) is a Rusty dynamically typed scripting language,
-//! using a lifetime checker without garbage collection.
+//!   using a lifetime checker without garbage collection.
 //!
 //! For more information and an overview, see [Piston's README in the core repository](https://github.com/pistondevelopers/piston).
 //!
@@ -143,6 +139,20 @@
 //! For more information and an overview, see [Piston's README in the core repository](https://github.com/pistondevelopers/piston).
 
 // Reexported crates.
-pub use event_loop::{self, *};
-pub use input::{self, *};
-pub use window::{self, *};
+
+pub mod event_loop;
+pub mod glutin_window;
+pub mod graphics;
+pub mod graphics_api_version;
+pub mod input;
+pub mod opengl_graphics;
+pub mod shader_version;
+pub mod shaders;
+pub mod texture;
+pub mod viewport;
+pub mod window;
+
+#[macro_use]
+extern crate bitflags;
+#[macro_use]
+extern crate serde_derive;
