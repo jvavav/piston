@@ -7,3 +7,8 @@ pub mod shader_utils;
 mod back_end;
 mod draw_state;
 mod texture;
+
+pub use self::{
+    back_end::{Colored, GlGraphics, Textured},
+    texture::Texture,
+};
